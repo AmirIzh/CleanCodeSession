@@ -9,6 +9,8 @@ import printers.model.PrintReport;
 import printers.model.PrinterType;
 import printers.support.Utils;
 
+import java.awt.*;
+
 @AllArgsConstructor
 public abstract class BasePrinter implements Printer {
     private PrinterType printerType;
@@ -23,6 +25,31 @@ public abstract class BasePrinter implements Printer {
             if (printTime * costPerSecond <= printCommand.getMaxCost()) {
                 Utils.print(printerType, printCommand);
                 return new PrintReport(printerType, printTime, printTime * costPerSecond);
+            }
+            else if (printCommand.isLowBudgetOption()) {
+                printCommand.setTextColor(Color.BLACK);
+                printCommand.setPaperBackgroundColor(Color.WHITE);
+                if (printTime * costPerSecond <= printCommand.getMaxCost()) {
+                    Utils.print(printerType, printCommand);
+                    return new PrintReport(printerType, printTime, printTime * costPerSecond);
+                }
+                else {
+                    printCommand.setTextSize(printCommand.getTextSize() / 2);
+                    if (printTime * costPerSecond <= printCommand.getMaxCost()) {
+                        Utils.print(printerType, printCommand);
+                        return new PrintReport(printerType, printTime, printTime * costPerSecond);
+                    }
+                    else {
+                        printCommand.setTextSize(printCommand.getTextSize() / 2);
+                        if (printTime * costPerSecond <= printCommand.getMaxCost()) {
+                            Utils.print(printerType, printCommand);
+                            return new PrintReport(printerType, printTime, printTime * costPerSecond);
+                        }
+                        else {
+                            throw new PrintTooExpensiveException(printerType, printCommand.getId(), printCommand.getMaxCost(), printTime * costPerSecond);
+                        }
+                    }
+                }
             }
             else {
                 throw new PrintTooExpensiveException(printerType, printCommand.getId(), printCommand.getMaxCost(), printTime * costPerSecond);
