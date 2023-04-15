@@ -7,7 +7,9 @@ public enum PaperMaterial {
     FLAX(3),
     BAMBOO(3),
     WOOD(4),
-    HEMP(2);
+    HEMP(2),
+    IRON(12),
+    STEEL(8);
 
     @Getter
     private final int weight;

@@ -15,7 +15,7 @@ public class SimplePrinter extends BasePrinter implements Printer {
         if (Utils.isColoredPrint(printCommand)) {
             return "color";
         }
-        else if (Utils.isWoodenPrint(printCommand)) {
+        else if (Utils.isWoodenPrint(printCommand) || Utils.isMetalPrint(printCommand) ) {
             return "paper material";
         }
         else if (Utils.isLargePrint(printCommand)) {

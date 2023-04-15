@@ -6,5 +6,6 @@ public enum PrinterType {
     LASER,
     MULTI,
     SIMPLE,
-    WOOD
+    WOOD,
+    ALL_MATERIALS
 }
