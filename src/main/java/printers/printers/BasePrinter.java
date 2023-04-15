@@ -15,7 +15,9 @@ public abstract class BasePrinter implements Printer {
     private double costPerSecond;
 
     public PrintReport print(PrintCommand printCommand) throws PrinterNotValidException, PrintTooSlowException, PrintTooExpensiveException {
-        if (isValidPrint(printCommand)) {
+        String reason = isValidPrint(printCommand);
+
+        if (reason == null) {
             long printTime = (long) Utils.getPrintTime(printerType, printCommand);
 
             if (printTime * costPerSecond <= printCommand.getMaxCost()) {
@@ -27,7 +29,7 @@ public abstract class BasePrinter implements Printer {
             }
         }
         else {
-            throw new PrinterNotValidException(printerType, printCommand.getId());
+            throw new PrinterNotValidException(printerType, printCommand.getId(), reason);
         }
     }
 }

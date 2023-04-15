@@ -10,7 +10,7 @@ public class MultiPrinter extends BasePrinter implements Printer {
     }
 
     @Override
-    public boolean isValidPrint(PrintCommand printCommand) {
-        return true;
+    public String isValidPrint(PrintCommand printCommand) {
+        return null;
     }
 }

@@ -11,7 +11,18 @@ public class SimplePrinter extends BasePrinter implements Printer {
     }
 
     @Override
-    public boolean isValidPrint(PrintCommand printCommand) {
-        return !Utils.isLargePrint(printCommand) && !Utils.isColoredPrint(printCommand) && !Utils.isWoodenPrint(printCommand);
+    public String isValidPrint(PrintCommand printCommand) {
+        if (Utils.isColoredPrint(printCommand)) {
+            return "color";
+        }
+        else if (Utils.isWoodenPrint(printCommand)) {
+            return "paper material";
+        }
+        else if (Utils.isLargePrint(printCommand)) {
+            return "paper size";
+        }
+        else {
+            return null;
+        }
     }
 }

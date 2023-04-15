@@ -8,5 +8,5 @@ import printers.model.PrintReport;
 
 public interface Printer {
     PrintReport print(PrintCommand printCommand) throws PrinterNotValidException, PrintTooSlowException, PrintTooExpensiveException;
-    boolean isValidPrint(PrintCommand printCommand);
+    String isValidPrint(PrintCommand printCommand);
 }

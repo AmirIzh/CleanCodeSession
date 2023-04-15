@@ -11,7 +11,15 @@ public class ColorPrinter extends BasePrinter implements Printer {
     }
 
     @Override
-    public boolean isValidPrint(PrintCommand printCommand) {
-        return !Utils.isLargePrint(printCommand) && !Utils.isWoodenPrint(printCommand);
+    public String isValidPrint(PrintCommand printCommand) {
+        if (Utils.isLargePrint(printCommand)) {
+            return "paper size";
+        }
+        else if (Utils.isWoodenPrint(printCommand)) {
+            return "paper material";
+        }
+        else {
+            return null;
+        }
     }
 }
