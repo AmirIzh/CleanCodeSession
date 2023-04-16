@@ -7,7 +7,7 @@ import printers.support.Utils;
 public class SimplePrinter extends BasePrinter implements Printer {
 
     public SimplePrinter(PrinterType printerType, int costPerSecond) {
-        super(printerType, costPerSecond);
+        super(printerType, costPerSecond, false);
     }
 
     @Override

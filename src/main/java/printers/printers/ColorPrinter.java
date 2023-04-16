@@ -7,7 +7,7 @@ import printers.support.Utils;
 public class ColorPrinter extends BasePrinter implements Printer {
 
     public ColorPrinter(PrinterType printerType, int costPerSecond) {
-        super(printerType, costPerSecond);
+        super(printerType, costPerSecond, false);
     }
 
     @Override

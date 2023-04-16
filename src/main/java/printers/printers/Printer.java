@@ -9,4 +9,5 @@ import printers.model.PrintReport;
 public interface Printer {
     PrintReport print(PrintCommand printCommand) throws PrinterNotValidException, PrintTooSlowException, PrintTooExpensiveException;
     String isValidPrint(PrintCommand printCommand);
+    void useWeightTax(boolean use);
 }

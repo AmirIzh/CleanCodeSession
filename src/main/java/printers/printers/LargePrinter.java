@@ -7,7 +7,7 @@ import printers.support.Utils;
 public class LargePrinter extends BasePrinter implements Printer {
 
     public LargePrinter(PrinterType printerType, int costPerSecond) {
-        super(printerType, costPerSecond);
+        super(printerType, costPerSecond, false);
     }
 
     @Override

@@ -15,6 +15,7 @@ import java.awt.*;
 public abstract class BasePrinter implements Printer {
     private PrinterType printerType;
     private double costPerSecond;
+    private boolean addWeightTax;
 
     public PrintReport print(PrintCommand printCommand) throws PrinterNotValidException, PrintTooSlowException, PrintTooExpensiveException {
         String reason = isValidPrint(printCommand);
@@ -22,6 +23,10 @@ public abstract class BasePrinter implements Printer {
         if (reason == null) {
             double weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
             long printTime = (long) Utils.getPrintTime(printerType, printCommand);
+
+            if (!addWeightTax) {
+                weightTax = 0;
+            }
 
             if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                 Utils.print(printerType, printCommand);
@@ -33,6 +38,11 @@ public abstract class BasePrinter implements Printer {
 
                 weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
                 printTime = (long) Utils.getPrintTime(printerType, printCommand);
+
+                if (!addWeightTax) {
+                    weightTax = 0;
+                }
+
                 if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                     Utils.print(printerType, printCommand);
                     return new PrintReport(printerType, printTime, printTime * costPerSecond);
@@ -42,6 +52,11 @@ public abstract class BasePrinter implements Printer {
 
                     weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
                     printTime = (long) Utils.getPrintTime(printerType, printCommand);
+
+                    if (!addWeightTax) {
+                        weightTax = 0;
+                    }
+
                     if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                         Utils.print(printerType, printCommand);
                         return new PrintReport(printerType, printTime, printTime * costPerSecond);
@@ -51,6 +66,11 @@ public abstract class BasePrinter implements Printer {
 
                         weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
                         printTime = (long) Utils.getPrintTime(printerType, printCommand);
+
+                        if (!addWeightTax) {
+                            weightTax = 0;
+                        }
+
                         if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                             Utils.print(printerType, printCommand);
                             return new PrintReport(printerType, printTime, printTime * costPerSecond);
@@ -68,5 +88,9 @@ public abstract class BasePrinter implements Printer {
         else {
             throw new PrinterNotValidException(printerType, printCommand.getId(), reason);
         }
+    }
+
+    public void useWeightTax(boolean use) {
+        addWeightTax = use;
     }
 }

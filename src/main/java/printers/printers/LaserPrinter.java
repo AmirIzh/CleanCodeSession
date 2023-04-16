@@ -7,7 +7,7 @@ import printers.support.Utils;
 public class LaserPrinter extends BasePrinter implements Printer {
 
     public LaserPrinter(PrinterType printerType, int costPerSecond) {
-        super(printerType, costPerSecond);
+        super(printerType, costPerSecond, false);
     }
 
     @Override

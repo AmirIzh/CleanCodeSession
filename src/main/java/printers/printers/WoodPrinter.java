@@ -7,7 +7,7 @@ import printers.support.Utils;
 public class WoodPrinter extends BasePrinter implements Printer {
 
     public WoodPrinter(PrinterType printerType, int costPerSecond) {
-        super(printerType, costPerSecond);
+        super(printerType, costPerSecond, false);
     }
 
     @Override
