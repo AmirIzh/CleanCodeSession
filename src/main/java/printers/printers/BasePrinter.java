@@ -20,16 +20,19 @@ public abstract class BasePrinter implements Printer {
         String reason = isValidPrint(printCommand);
 
         if (reason == null) {
+            double weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
             long printTime = (long) Utils.getPrintTime(printerType, printCommand);
 
-            if (printTime * costPerSecond <= printCommand.getMaxCost()) {
+            if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                 Utils.print(printerType, printCommand);
                 return new PrintReport(printerType, printTime, printTime * costPerSecond);
             }
             else if (printCommand.isLowBudgetOption()) {
                 printCommand.setTextColor(Color.BLACK);
                 printCommand.setPaperBackgroundColor(Color.WHITE);
-                if (printTime * costPerSecond <= printCommand.getMaxCost()) {
+
+                weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
+                if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                     Utils.print(printerType, printCommand);
                     return new PrintReport(printerType, printTime, printTime * costPerSecond);
                 }
@@ -41,7 +44,9 @@ public abstract class BasePrinter implements Printer {
                     }
                     else {
                         printCommand.setTextSize(printCommand.getTextSize() / 2);
-                        if (printTime * costPerSecond <= printCommand.getMaxCost()) {
+
+                        weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
+                        if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                             Utils.print(printerType, printCommand);
                             return new PrintReport(printerType, printTime, printTime * costPerSecond);
                         }

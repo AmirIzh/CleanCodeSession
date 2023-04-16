@@ -63,6 +63,14 @@ public class Utils {
         }
     }
 
+    public static int getPagesCount(PrintCommand printCommand) {
+        int wordsCount = printCommand.getText().split(" ").length;
+        int fullPagesCount = wordsCount / 100;
+        int partialPagesCount = wordsCount % 100 > 0 ? 1 : 0;
+
+        return fullPagesCount + partialPagesCount;
+    }
+
     public static boolean isLargePrint(PrintCommand printCommand) {
         return printCommand.getPaperSize() == PaperSize.A0 || printCommand.getPaperSize() == PaperSize.A1;
     }
