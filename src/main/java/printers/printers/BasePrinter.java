@@ -29,18 +29,24 @@ public abstract class BasePrinter implements Printer {
             else if (printCommand.isLowBudgetOption()) {
                 printCommand.setTextColor(Color.BLACK);
                 printCommand.setPaperBackgroundColor(Color.WHITE);
+
+                printTime = (long) Utils.getPrintTime(printerType, printCommand);
                 if (printTime * costPerSecond <= printCommand.getMaxCost()) {
                     Utils.print(printerType, printCommand);
                     return new PrintReport(printerType, printTime, printTime * costPerSecond);
                 }
                 else {
                     printCommand.setTextSize(printCommand.getTextSize() / 2);
+
+                    printTime = (long) Utils.getPrintTime(printerType, printCommand);
                     if (printTime * costPerSecond <= printCommand.getMaxCost()) {
                         Utils.print(printerType, printCommand);
                         return new PrintReport(printerType, printTime, printTime * costPerSecond);
                     }
                     else {
                         printCommand.setTextSize(printCommand.getTextSize() / 2);
+
+                        printTime = (long) Utils.getPrintTime(printerType, printCommand);
                         if (printTime * costPerSecond <= printCommand.getMaxCost()) {
                             Utils.print(printerType, printCommand);
                             return new PrintReport(printerType, printTime, printTime * costPerSecond);
