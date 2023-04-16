@@ -40,8 +40,9 @@ public abstract class BasePrinter implements Printer {
                 else {
                     printCommand.setTextSize(printCommand.getTextSize() / 2);
 
+                    weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
                     printTime = (long) Utils.getPrintTime(printerType, printCommand);
-                    if (printTime * costPerSecond <= printCommand.getMaxCost()) {
+                    if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                         Utils.print(printerType, printCommand);
                         return new PrintReport(printerType, printTime, printTime * costPerSecond);
                     }
