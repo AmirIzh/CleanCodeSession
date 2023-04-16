@@ -32,12 +32,15 @@ public abstract class BasePrinter implements Printer {
                 printCommand.setPaperBackgroundColor(Color.WHITE);
 
                 weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
+                printTime = (long) Utils.getPrintTime(printerType, printCommand);
                 if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                     Utils.print(printerType, printCommand);
                     return new PrintReport(printerType, printTime, printTime * costPerSecond);
                 }
                 else {
                     printCommand.setTextSize(printCommand.getTextSize() / 2);
+
+                    printTime = (long) Utils.getPrintTime(printerType, printCommand);
                     if (printTime * costPerSecond <= printCommand.getMaxCost()) {
                         Utils.print(printerType, printCommand);
                         return new PrintReport(printerType, printTime, printTime * costPerSecond);
@@ -46,6 +49,7 @@ public abstract class BasePrinter implements Printer {
                         printCommand.setTextSize(printCommand.getTextSize() / 2);
 
                         weightTax = Utils.getPagesCount(printCommand) * printCommand.getPaperMaterial().getWeight();
+                        printTime = (long) Utils.getPrintTime(printerType, printCommand);
                         if ((printTime * costPerSecond) + weightTax <= printCommand.getMaxCost()) {
                             Utils.print(printerType, printCommand);
                             return new PrintReport(printerType, printTime, printTime * costPerSecond);
