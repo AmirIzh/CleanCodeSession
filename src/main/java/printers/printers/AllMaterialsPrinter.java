@@ -2,6 +2,7 @@ package printers.printers;
 
 import printers.model.PrintCommand;
 import printers.model.PrinterType;
+import printers.support.Utils;
 
 public class AllMaterialsPrinter extends WoodPrinter implements Printer {
 
@@ -13,6 +14,9 @@ public class AllMaterialsPrinter extends WoodPrinter implements Printer {
     public String isValidPrint(PrintCommand printCommand) {
         String reason = super.isValidPrint(printCommand);
 
+        if (Utils.isWoodenPrint(printCommand)) {
+            return "paper material";
+        }
         if (reason.equals("paper material")) {
             return null;
         }
