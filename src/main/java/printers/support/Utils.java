@@ -82,8 +82,4 @@ public class Utils {
     public static boolean isWoodenPrint(PrintCommand printCommand) {
         return printCommand.getPaperMaterial() == PaperMaterial.WOOD || printCommand.getPaperMaterial() == PaperMaterial.BAMBOO;
     }
-
-    public static boolean isMetalPrint(PrintCommand printCommand) {
-        return printCommand.getPaperMaterial() == PaperMaterial.IRON || printCommand.getPaperMaterial() == PaperMaterial.STEEL;
-    }
 }

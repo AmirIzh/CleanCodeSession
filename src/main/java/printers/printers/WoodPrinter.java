@@ -15,9 +15,6 @@ public class WoodPrinter extends BasePrinter implements Printer {
         if (Utils.isColoredPrint(printCommand)) {
             return "color";
         }
-        else if (Utils.isMetalPrint(printCommand) ) {
-            return "paper material";
-        }
         else if (Utils.isLargePrint(printCommand)) {
             return "paper size";
         }

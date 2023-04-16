@@ -15,7 +15,7 @@ public class LaserPrinter extends BasePrinter implements Printer {
         if (Utils.isColoredPrint(printCommand)) {
             return "color";
         }
-        else if (Utils.isWoodenPrint(printCommand) || Utils.isMetalPrint(printCommand) ) {
+        else if (Utils.isWoodenPrint(printCommand)) {
             return "paper material";
         }
         else if (Utils.isLargePrint(printCommand)) {
