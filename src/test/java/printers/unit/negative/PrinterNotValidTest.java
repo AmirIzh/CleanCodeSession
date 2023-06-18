@@ -1,6 +1,5 @@
 package printers.unit.negative;
 
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import printers.errorhandling.exceptions.PrinterNotValidException;
@@ -11,12 +10,13 @@ import printers.support.TestResources;
 
 import java.awt.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static printers.support.Utils.*;
 
 @SpringBootTest(classes = printers.configuration.Configuration.class)
 class PrinterNotValidTest extends TestResources {
 
-    @SneakyThrows
     @Test
     void simplePrinterColorPrintTest() {
         // arrange:
@@ -35,10 +35,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> simplePrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> simplePrinter.print(printCommand));
+        assertEquals(TEXT_COLOR, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void simplePrinterPaperSizePrintTest() {
         // arrange:
@@ -57,10 +57,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> simplePrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> simplePrinter.print(printCommand));
+        assertEquals(PAPER_SIZE, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void simplePrinterWoodPrintTest() {
         // arrange:
@@ -79,10 +79,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> simplePrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> simplePrinter.print(printCommand));
+        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void colorPrinterPaperSizePrintTest() {
         // arrange:
@@ -101,10 +101,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> colorPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> colorPrinter.print(printCommand));
+        assertEquals(PAPER_SIZE, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void colorPrinterWoodPrintTest() {
         // arrange:
@@ -123,10 +123,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> colorPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> colorPrinter.print(printCommand));
+        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void largePrinterColorPrintTest() {
         // arrange:
@@ -145,10 +145,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> largePrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> largePrinter.print(printCommand));
+        assertEquals(TEXT_COLOR, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void largePrinterWoodPrintTest() {
         // arrange:
@@ -167,10 +167,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> largePrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> largePrinter.print(printCommand));
+        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void laserPrinterColorPrintTest() {
         // arrange:
@@ -189,10 +189,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
+        assertEquals(TEXT_COLOR, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void laserPrinterPaperSizePrintTest() {
         // arrange:
@@ -211,10 +211,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
+        assertEquals(PAPER_SIZE, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void laserPrinterWoodPrintTest() {
         // arrange:
@@ -233,10 +233,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
+        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void woodPrinterColorPrintTest() {
         // arrange:
@@ -255,10 +255,10 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> woodPrinter.print(printCommand));
+        assertEquals(TEXT_COLOR, printerNotValidException.getInvalidReason());
     }
 
-    @SneakyThrows
     @Test
     void woodPrinterPaperSizePrintTest() {
         // arrange:
@@ -277,6 +277,7 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> woodPrinter.print(printCommand));
+        assertEquals(PAPER_SIZE, printerNotValidException.getInvalidReason());
     }
 }

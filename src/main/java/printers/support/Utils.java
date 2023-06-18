@@ -8,11 +8,18 @@ import printers.model.PrintCommand;
 import printers.model.PrinterType;
 
 import java.awt.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.Callable;
 
 import static printers.support.TimeFactorConstants.*;
 
 public class Utils {
     private Utils() {}
+
+    public static final String PAPER_SIZE = "paper size";
+    public static final String TEXT_COLOR = "text color";
+    public static final String PAPER_MATERIAL = "paper material";
 
     @SneakyThrows
     public static void print(PrinterType printerType, PrintCommand printCommand) throws PrintTooSlowException {
@@ -64,15 +71,37 @@ public class Utils {
         }
     }
 
-    public static boolean isLargePrint(PrintCommand printCommand) {
-        return printCommand.getPaperSize() == PaperSize.A0 || printCommand.getPaperSize() == PaperSize.A1;
+    public static Optional<String> isLargePrint(PrintCommand printCommand) {
+        if (printCommand.getPaperSize() == PaperSize.A0 || printCommand.getPaperSize() == PaperSize.A1) {
+          return Optional.of(PAPER_SIZE);
+        }
+        return Optional.empty();
     }
 
-    public static boolean isColoredPrint(PrintCommand printCommand) {
-        return printCommand.getTextColor() != Color.BLACK || printCommand.getPaperBackgroundColor() != Color.WHITE;
+    public static Optional<String> isColoredPrint(PrintCommand printCommand) {
+        if (printCommand.getTextColor() != Color.BLACK || printCommand.getPaperBackgroundColor() != Color.WHITE) {
+            return Optional.of(TEXT_COLOR);
+        }
+        return Optional.empty();
     }
 
-    public static boolean isWoodenPrint(PrintCommand printCommand) {
-        return printCommand.getPaperMaterial() == PaperMaterial.WOOD || printCommand.getPaperMaterial() == PaperMaterial.BAMBOO;
+    public static Optional<String> isWoodenPrint(PrintCommand printCommand) {
+        if (printCommand.getPaperMaterial() == PaperMaterial.WOOD || printCommand.getPaperMaterial() == PaperMaterial.BAMBOO) {
+            return Optional.of(PAPER_MATERIAL);
+        }
+        return Optional.empty();
+    }
+
+    @SneakyThrows
+    public static Optional<String> isValidPrint(List<Callable<Optional<String>>> validityPredicates) {
+        for (Callable<Optional<String>> validityPredicate : validityPredicates) {
+            Optional<String> optionalInvalidParameter = validityPredicate.call();
+
+            if (optionalInvalidParameter.isPresent()) {
+                return optionalInvalidParameter;
+            }
+        }
+
+        return Optional.empty();
     }
 }
