@@ -182,15 +182,15 @@ class PrinterNotValidTest extends TestResources {
                 .text(LOREM_IPSUM)
                 .textSize(1)
                 .textFont(Font.MONOSPACED)
-                .textColor(Color.BLUE)
+                .textColor(Color.BLACK)
                 .paperSize(PaperSize.A0)
                 .paperMaterial(PaperMaterial.COTTON)
-                .paperBackgroundColor(Color.WHITE)
+                .paperBackgroundColor(Color.RED)
                 .build();
 
         // act + assert:
         PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> largePrinter.print(printCommand));
-        assertEquals(TEXT_COLOR, printerNotValidException.getInvalidReason());
+        assertEquals(PAPER_BACKGROUND_COLOR, printerNotValidException.getInvalidReason());
     }
 
     @Test
@@ -344,7 +344,7 @@ class PrinterNotValidTest extends TestResources {
 
         // act + assert:
         PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> woodPrinter.print(printCommand));
-        assertEquals(TEXT_COLOR, printerNotValidException.getInvalidReason());
+        assertEquals(PAPER_BACKGROUND_COLOR, printerNotValidException.getInvalidReason());
     }
 
     @Test
