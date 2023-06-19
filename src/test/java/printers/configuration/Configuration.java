@@ -3,8 +3,13 @@ package printers.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import printers.model.LowBudgetRetryFunctionalities;
+import printers.model.PrintCommand;
 import printers.model.PrinterType;
 import printers.printers.*;
+
+import java.awt.*;
+import java.util.function.UnaryOperator;
 
 @PropertySource("classpath:tests.properties")
 public class Configuration {
@@ -20,34 +25,67 @@ public class Configuration {
     private int printerSimpleCostPerSecond;
     @Value("${printer.wood.cost.per.second}")
     private int printerWoodCostPerSecond;
+    @Value("${max.retry.count}")
+    private int maxRetryCount;
 
     @Bean
-    Printer colorPrinter() {
-        return new ColorPrinter(PrinterType.COLOR, printerColorCostPerSecond);
+    UnaryOperator<PrintCommand> noColorFunctionality() {
+        return (printCommand) -> {
+            printCommand.setTextColor(Color.BLACK);
+            return printCommand;
+        };
     }
 
     @Bean
-    Printer largePrinter() {
-        return new LargePrinter(PrinterType.LARGE, printerLargeCostPerSecond);
+    UnaryOperator<PrintCommand> halfTextSizeFunctionality() {
+        return (printCommand) -> {
+            int newTextSize = printCommand.getTextSize() == 1 ? 1 : printCommand.getTextSize() / 2;
+            printCommand.setTextSize(newTextSize);
+
+            return printCommand;
+        };
     }
 
     @Bean
-    Printer laserPrinter() {
-        return new LaserPrinter(PrinterType.LASER, printerLaserCostPerSecond);
+    LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities (
+            UnaryOperator<PrintCommand> noColorFunctionality,
+            UnaryOperator<PrintCommand> halfTextSizeFunctionality) {
+        LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities = new LowBudgetRetryFunctionalities();
+
+        lowBudgetRetryFunctionalities.setLowBudgetRetryFunctionality(1, noColorFunctionality);
+        lowBudgetRetryFunctionalities.setLowBudgetRetryFunctionality(2, halfTextSizeFunctionality);
+        lowBudgetRetryFunctionalities.setLowBudgetRetryFunctionality(3, halfTextSizeFunctionality);
+
+        return lowBudgetRetryFunctionalities;
     }
 
     @Bean
-    Printer multiPrinter() {
-        return new MultiPrinter(PrinterType.MULTI, printerMultiCostPerSecond);
+    Printer colorPrinter(LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities) {
+        return new ColorPrinter(PrinterType.COLOR, printerColorCostPerSecond, maxRetryCount, lowBudgetRetryFunctionalities);
     }
 
     @Bean
-    Printer simplePrinter() {
-        return new SimplePrinter(PrinterType.SIMPLE, printerSimpleCostPerSecond);
+    Printer largePrinter(LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities) {
+        return new LargePrinter(PrinterType.LARGE, printerLargeCostPerSecond, maxRetryCount, lowBudgetRetryFunctionalities);
     }
 
     @Bean
-    Printer woodPrinter() {
-        return new WoodPrinter(PrinterType.WOOD, printerWoodCostPerSecond);
+    Printer laserPrinter(LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities) {
+        return new LaserPrinter(PrinterType.LASER, printerLaserCostPerSecond, maxRetryCount, lowBudgetRetryFunctionalities);
+    }
+
+    @Bean
+    Printer multiPrinter(LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities) {
+        return new MultiPrinter(PrinterType.MULTI, printerMultiCostPerSecond, maxRetryCount, lowBudgetRetryFunctionalities);
+    }
+
+    @Bean
+    Printer simplePrinter(LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities) {
+        return new SimplePrinter(PrinterType.SIMPLE, printerSimpleCostPerSecond, maxRetryCount, lowBudgetRetryFunctionalities);
+    }
+
+    @Bean
+    Printer woodPrinter(LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities) {
+        return new WoodPrinter(PrinterType.WOOD, printerWoodCostPerSecond, maxRetryCount, lowBudgetRetryFunctionalities);
     }
 }

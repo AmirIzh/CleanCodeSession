@@ -22,6 +22,7 @@ public class TestResources {
     protected final long A_LOT_OF_TIME = 20;
     protected final long SHORT_TIME = 5;
     protected final double HIGH_MAX_COST = 100;
+    protected final double MEDIUM_MAX_COST = 10;
     protected final double LOW_MAX_COST = 3;
     protected final String LOREM_IPSUM =
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +

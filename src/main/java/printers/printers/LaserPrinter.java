@@ -1,5 +1,6 @@
 package printers.printers;
 
+import printers.model.LowBudgetRetryFunctionalities;
 import printers.model.PrintCommand;
 import printers.model.PrinterType;
 import printers.support.Utils;
@@ -9,8 +10,8 @@ import java.util.Optional;
 
 public class LaserPrinter extends BasePrinter implements Printer {
 
-    public LaserPrinter(PrinterType printerType, int costPerSecond) {
-        super(printerType, costPerSecond);
+    public LaserPrinter(PrinterType printerType, int costPerSecond, int maxRetriesCount, LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities) {
+        super(printerType, costPerSecond, maxRetriesCount, lowBudgetRetryFunctionalities);
     }
 
     @Override
