@@ -175,4 +175,31 @@ class PrintTest extends TestResources {
         assertTrue(printReport.getPrintTime() < printCommand.getUrgencyInSeconds());
         assertTrue(printReport.getCost() < printCommand.getMaxCost());
     }
+
+    @SneakyThrows
+    @Test
+    void allMaterialsPrinterPrintTest() {
+        // arrange:
+        PrintCommand printCommand = PrintCommand
+                .builder()
+                .copies(1)
+                .urgencyInSeconds(A_LOT_OF_TIME)
+                .maxCost(HIGH_MAX_COST)
+                .text(LOREM_IPSUM)
+                .textSize(1)
+                .textFont(Font.SERIF)
+                .textColor(Color.BLACK)
+                .paperSize(PaperSize.A2)
+                .paperMaterial(PaperMaterial.IRON)
+                .paperBackgroundColor(Color.WHITE)
+                .build();
+
+        // act:
+        PrintReport printReport = allMaterialsPrinter.print(printCommand);
+
+        // assert:
+        assertEquals(PrinterType.ALL_MATERIALS, printReport.getPrinterUsed());
+        assertTrue(printReport.getPrintTime() < printCommand.getUrgencyInSeconds());
+        assertTrue(printReport.getCost() < printCommand.getMaxCost());
+    }
 }

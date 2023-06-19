@@ -92,6 +92,13 @@ public class Utils {
         return Optional.empty();
     }
 
+    public static Optional<String> isMetalPrint(PrintCommand printCommand) {
+        if (printCommand.getPaperMaterial() == PaperMaterial.IRON || printCommand.getPaperMaterial() == PaperMaterial.STEEL) {
+            return Optional.of(PAPER_MATERIAL);
+        }
+        return Optional.empty();
+    }
+
     @SneakyThrows
     public static Optional<String> isValidPrint(List<Callable<Optional<String>>> validityPredicates) {
         for (Callable<Optional<String>> validityPredicate : validityPredicates) {

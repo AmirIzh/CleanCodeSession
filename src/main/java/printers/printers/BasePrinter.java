@@ -1,10 +1,10 @@
 package printers.printers;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import printers.errorhandling.exceptions.PrintTooExpensiveException;
 import printers.errorhandling.exceptions.PrintTooSlowException;
 import printers.errorhandling.exceptions.PrinterNotValidException;
-import printers.model.LowBudgetRetryFunctionalities;
+import printers.model.LowBudgetRetryParameters;
 import printers.model.PrintCommand;
 import printers.model.PrintReport;
 import printers.model.PrinterType;
@@ -12,12 +12,17 @@ import printers.support.Utils;
 
 import java.util.Optional;
 
-@AllArgsConstructor
 public abstract class BasePrinter implements Printer {
-    private PrinterType printerType;
-    private double costPerSecond;
-    private int maxRetriesCount;
-    private LowBudgetRetryFunctionalities lowBudgetRetryFunctionalities;
+    @Autowired
+    private LowBudgetRetryParameters lowBudgetRetryParameters;
+
+    private final PrinterType printerType;
+    private final double costPerSecond;
+
+    protected BasePrinter(PrinterType printerType, double costPerSecond) {
+        this.printerType = printerType;
+        this.costPerSecond = costPerSecond;
+    }
 
     public PrintReport print(PrintCommand printCommand) throws PrinterNotValidException, PrintTooSlowException, PrintTooExpensiveException {
         return print(printCommand, 0);
@@ -40,8 +45,8 @@ public abstract class BasePrinter implements Printer {
     private PrintReport expensivePrint(PrintCommand printCommand, int retryCount) throws PrinterNotValidException, PrintTooSlowException, PrintTooExpensiveException {
         retryCount++;
 
-        if (printCommand.isLowBudgetOption() && retryCount <= maxRetriesCount) {
-            printCommand = lowBudgetRetryFunctionalities.getLowBudgetRetryFunctionality(retryCount).apply(printCommand);
+        if (printCommand.isLowBudgetOption() && retryCount <= lowBudgetRetryParameters.getMaxRetriesCount()) {
+            printCommand = lowBudgetRetryParameters.getLowBudgetRetryFunctionality(retryCount).apply(printCommand);
             return print(printCommand, retryCount);
         }
 
