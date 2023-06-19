@@ -410,7 +410,7 @@ class PrinterNotValidTest extends TestResources {
 
         // act + assert:
         PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter.print(printCommand));
-        assertEquals(TEXT_COLOR, printerNotValidException.getInvalidReason());
+        assertEquals(PAPER_BACKGROUND_COLOR, printerNotValidException.getInvalidReason());
     }
 
     @Test
