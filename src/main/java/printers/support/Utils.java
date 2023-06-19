@@ -19,6 +19,7 @@ public class Utils {
 
     public static final String PAPER_SIZE = "paper size";
     public static final String TEXT_COLOR = "text color";
+    public static final String PAPER_BACKGROUND_COLOR = "paper background color";
     public static final String PAPER_MATERIAL = "paper material";
 
     @SneakyThrows
@@ -79,9 +80,13 @@ public class Utils {
     }
 
     public static Optional<String> isColoredPrint(PrintCommand printCommand) {
-        if (printCommand.getTextColor() != Color.BLACK || printCommand.getPaperBackgroundColor() != Color.WHITE) {
+        if (printCommand.getTextColor() != Color.BLACK) {
             return Optional.of(TEXT_COLOR);
         }
+        else if (printCommand.getPaperBackgroundColor() != Color.WHITE) {
+            return Optional.of(PAPER_BACKGROUND_COLOR);
+        }
+
         return Optional.empty();
     }
 
@@ -89,12 +94,13 @@ public class Utils {
         if (printCommand.getPaperMaterial() == PaperMaterial.WOOD || printCommand.getPaperMaterial() == PaperMaterial.BAMBOO) {
             return Optional.of(PAPER_MATERIAL);
         }
+
         return Optional.empty();
     }
 
     @SneakyThrows
-    public static Optional<String> isValidPrint(List<Callable<Optional<String>>> validityPredicates) {
-        for (Callable<Optional<String>> validityPredicate : validityPredicates) {
+    public static Optional<String> isValidPrint(List<Callable<Optional<String>>> invalidityPredicates) {
+        for (Callable<Optional<String>> validityPredicate : invalidityPredicates) {
             Optional<String> optionalInvalidParameter = validityPredicate.call();
 
             if (optionalInvalidParameter.isPresent()) {
