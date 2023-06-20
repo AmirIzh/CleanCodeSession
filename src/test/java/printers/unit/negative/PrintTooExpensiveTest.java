@@ -69,7 +69,7 @@ class PrintTooExpensiveTest extends TestResources {
                 .urgencyInSeconds(A_LOT_OF_TIME)
                 .maxCost(MEDIUM_MAX_COST)
                 .text(LOREM_IPSUM)
-                .textSize(10)
+                .textSize(15)
                 .textFont(Font.MONOSPACED)
                 .textColor(Color.BLACK)
                 .paperSize(PaperSize.A2)
@@ -78,6 +78,6 @@ class PrintTooExpensiveTest extends TestResources {
                 .build();
 
         // act + assert:
-        assertDoesNotThrow(() -> simplePrinter.print(printCommand));
+        assertThrows(PrintTooExpensiveException.class, () -> simplePrinter.print(printCommand));
     }
 }
