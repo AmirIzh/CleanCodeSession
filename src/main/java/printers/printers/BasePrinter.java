@@ -9,12 +9,15 @@ import printers.model.PrintCommand;
 import printers.model.PrintReport;
 import printers.model.PrinterType;
 import printers.support.Utils;
+import printers.support.PrintCostCalculator;
 
 import java.util.Optional;
 
 public abstract class BasePrinter implements Printer {
     @Autowired
     private LowBudgetRetryParameters lowBudgetRetryParameters;
+    @Autowired
+    private PrintCostCalculator printCostCalculator;
 
     private final PrinterType printerType;
     private final double costPerSecond;
@@ -31,10 +34,11 @@ public abstract class BasePrinter implements Printer {
     public PrintReport print(PrintCommand printCommand, int retryCount) throws PrinterNotValidException, PrintTooSlowException, PrintTooExpensiveException {
         verifyValidPrint(printCommand);
 
-        long printTime = (long) Utils.getPrintTime(printerType, printCommand);
+        double cost = printCostCalculator.getPrintCost(printerType, costPerSecond, printCommand);
 
-        if (printTime * costPerSecond <= printCommand.getMaxCost()) {
+        if (cost <= printCommand.getMaxCost()) {
             Utils.print(printerType, printCommand);
+            long printTime = (long) Utils.getPrintTime(printerType, printCommand);
             return new PrintReport(printerType, printTime, printTime * costPerSecond);
         }
         else {
@@ -50,11 +54,11 @@ public abstract class BasePrinter implements Printer {
             return print(printCommand, retryCount);
         }
 
-        long printTime = (long) Utils.getPrintTime(printerType, printCommand);
-        throw new PrintTooExpensiveException(printerType, printCommand.getId(), printCommand.getMaxCost(), printTime * costPerSecond);
+        double cost = printCostCalculator.getPrintCost(printerType, costPerSecond, printCommand);
+        throw new PrintTooExpensiveException(printerType, printCommand.getId(), printCommand.getMaxCost(), cost);
     }
 
-    protected void verifyValidPrint(PrintCommand printCommand) throws PrinterNotValidException {
+    private void verifyValidPrint(PrintCommand printCommand) throws PrinterNotValidException {
         Optional<String> optionalInvalidReason = isValidPrint(printCommand);
         if (optionalInvalidReason.isPresent()) {
             throw new PrinterNotValidException(printerType, printCommand.getId(), optionalInvalidReason.get());

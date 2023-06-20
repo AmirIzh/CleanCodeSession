@@ -184,7 +184,7 @@ class PrintTest extends TestResources {
                 .builder()
                 .copies(1)
                 .urgencyInSeconds(A_LOT_OF_TIME)
-                .maxCost(HIGH_MAX_COST)
+                .maxCost(VERY_HIGH_MAX_COST)
                 .text(LOREM_IPSUM)
                 .textSize(1)
                 .textFont(Font.SERIF)

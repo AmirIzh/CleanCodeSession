@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest(classes = printers.configuration.Configuration.class)
 class PrintTooExpensiveTest extends TestResources {
     @Test
-    void printerTooExpensivePrintTest() {
+    void tooExpensivePrintTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
                 .builder()
@@ -38,14 +38,14 @@ class PrintTooExpensiveTest extends TestResources {
     }
 
     @Test
-    void printerNotTooExpensivePrintTestDueToLowBudgetOption() {
+    void notTooExpensivePrintDueToLowBudgetOptionTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
                 .builder()
                 .lowBudgetOption(true)
                 .copies(1)
                 .urgencyInSeconds(A_LOT_OF_TIME)
-                .maxCost(MEDIUM_MAX_COST)
+                .maxCost(MEDIUM_MAX_COST_2)
                 .text(LOREM_IPSUM)
                 .textSize(4)
                 .textFont(Font.MONOSPACED)
@@ -60,7 +60,7 @@ class PrintTooExpensiveTest extends TestResources {
     }
 
     @Test
-    void printerTooExpensivePrintTestWithLowBudgetOption() {
+    void tooExpensivePrintWithLowBudgetOptionTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
                 .builder()

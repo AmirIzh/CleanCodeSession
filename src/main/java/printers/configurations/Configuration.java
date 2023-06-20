@@ -7,6 +7,7 @@ import printers.model.LowBudgetRetryParameters;
 import printers.model.PrintCommand;
 import printers.model.PrinterType;
 import printers.printers.*;
+import printers.support.PrintCostCalculator;
 
 import java.awt.*;
 import java.util.function.UnaryOperator;
@@ -60,6 +61,11 @@ public class Configuration {
         lowBudgetRetryFunctionalities.setLowBudgetRetryFunctionality(3, halfTextSizeFunctionality);
 
         return lowBudgetRetryFunctionalities;
+    }
+
+    @Bean
+    PrintCostCalculator weightTaxCalculator() {
+        return new PrintCostCalculator();
     }
 
     @Bean
