@@ -190,7 +190,7 @@ class PrintTest extends TestResources {
                 .textFont(Font.SERIF)
                 .textColor(Color.BLACK)
                 .paperSize(PaperSize.A2)
-                .paperMaterial(PaperMaterial.IRON)
+                .paperMaterial(PaperMaterial.COTTON)
                 .paperBackgroundColor(Color.WHITE)
                 .build();
 
@@ -217,7 +217,7 @@ class PrintTest extends TestResources {
                 .textFont(Font.SERIF)
                 .textColor(Color.BLACK)
                 .paperSize(PaperSize.A2)
-                .paperMaterial(PaperMaterial.IRON)
+                .paperMaterial(PaperMaterial.HEMP)
                 .paperBackgroundColor(Color.WHITE)
                 .build();
 

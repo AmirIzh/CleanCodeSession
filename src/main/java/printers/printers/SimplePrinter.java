@@ -18,7 +18,6 @@ public class SimplePrinter extends BasePrinter implements Printer {
         return Utils.isValidPrint(List.of(
                 () -> Utils.isLargePrint(printCommand),
                 () -> Utils.isWoodenPrint(printCommand),
-                () -> Utils.isColoredPrint(printCommand),
-                () -> Utils.isMetalPrint(printCommand)));
+                () -> Utils.isColoredPrint(printCommand)));
     }
 }

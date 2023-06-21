@@ -84,28 +84,6 @@ class PrinterNotValidTest extends TestResources {
     }
 
     @Test
-    void simplePrinterMetalPrintTest() {
-        // arrange:
-        PrintCommand printCommand = PrintCommand
-                .builder()
-                .copies(1)
-                .urgencyInSeconds(A_LOT_OF_TIME)
-                .maxCost(HIGH_MAX_COST)
-                .text(LOREM_IPSUM)
-                .textSize(1)
-                .textFont(Font.MONOSPACED)
-                .textColor(Color.BLACK)
-                .paperSize(PaperSize.A3)
-                .paperMaterial(PaperMaterial.STEEL)
-                .paperBackgroundColor(Color.WHITE)
-                .build();
-
-        // act + assert:
-        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> simplePrinter.print(printCommand));
-        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
-    }
-
-    @Test
     void colorPrinterPaperSizePrintTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
@@ -150,28 +128,6 @@ class PrinterNotValidTest extends TestResources {
     }
 
     @Test
-    void colorPrinterMetalPrintTest() {
-        // arrange:
-        PrintCommand printCommand = PrintCommand
-                .builder()
-                .copies(1)
-                .urgencyInSeconds(A_LOT_OF_TIME)
-                .maxCost(HIGH_MAX_COST)
-                .text(LOREM_IPSUM)
-                .textSize(1)
-                .textFont(Font.MONOSPACED)
-                .textColor(Color.BLUE)
-                .paperSize(PaperSize.A4)
-                .paperMaterial(PaperMaterial.IRON)
-                .paperBackgroundColor(Color.WHITE)
-                .build();
-
-        // act + assert:
-        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> colorPrinter.print(printCommand));
-        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
-    }
-
-    @Test
     void largePrinterColorPrintTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
@@ -207,28 +163,6 @@ class PrinterNotValidTest extends TestResources {
                 .textColor(Color.BLACK)
                 .paperSize(PaperSize.A0)
                 .paperMaterial(PaperMaterial.BAMBOO)
-                .paperBackgroundColor(Color.WHITE)
-                .build();
-
-        // act + assert:
-        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> largePrinter.print(printCommand));
-        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
-    }
-
-    @Test
-    void largePrinterMetalPrintTest() {
-        // arrange:
-        PrintCommand printCommand = PrintCommand
-                .builder()
-                .copies(1)
-                .urgencyInSeconds(A_LOT_OF_TIME)
-                .maxCost(HIGH_MAX_COST)
-                .text(LOREM_IPSUM)
-                .textSize(1)
-                .textFont(Font.MONOSPACED)
-                .textColor(Color.BLACK)
-                .paperSize(PaperSize.A0)
-                .paperMaterial(PaperMaterial.STEEL)
                 .paperBackgroundColor(Color.WHITE)
                 .build();
 
@@ -304,28 +238,6 @@ class PrinterNotValidTest extends TestResources {
     }
 
     @Test
-    void laserPrinterMetalPrintTest() {
-        // arrange:
-        PrintCommand printCommand = PrintCommand
-                .builder()
-                .copies(1)
-                .urgencyInSeconds(SHORT_TIME)
-                .maxCost(HIGH_MAX_COST)
-                .text(LOREM_IPSUM)
-                .textSize(1)
-                .textFont(Font.MONOSPACED)
-                .textColor(Color.BLACK)
-                .paperSize(PaperSize.A3)
-                .paperMaterial(PaperMaterial.STEEL)
-                .paperBackgroundColor(Color.WHITE)
-                .build();
-
-        // act + assert:
-        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> laserPrinter.print(printCommand));
-        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
-    }
-
-    @Test
     void woodPrinterColorPrintTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
@@ -370,28 +282,6 @@ class PrinterNotValidTest extends TestResources {
     }
 
     @Test
-    void woodPrinterMetalPrintTest() {
-        // arrange:
-        PrintCommand printCommand = PrintCommand
-                .builder()
-                .copies(1)
-                .urgencyInSeconds(A_LOT_OF_TIME)
-                .maxCost(HIGH_MAX_COST)
-                .text(LOREM_IPSUM)
-                .textSize(1)
-                .textFont(Font.MONOSPACED)
-                .textColor(Color.BLACK)
-                .paperSize(PaperSize.A2)
-                .paperMaterial(PaperMaterial.IRON)
-                .paperBackgroundColor(Color.WHITE)
-                .build();
-
-        // act + assert:
-        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> woodPrinter.print(printCommand));
-        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
-    }
-
-    @Test
     void allMaterialsPrinterColorPrintTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
@@ -404,7 +294,7 @@ class PrinterNotValidTest extends TestResources {
                 .textFont(Font.MONOSPACED)
                 .textColor(Color.BLACK)
                 .paperSize(PaperSize.A3)
-                .paperMaterial(PaperMaterial.IRON)
+                .paperMaterial(PaperMaterial.FLAX)
                 .paperBackgroundColor(Color.RED)
                 .build();
 
@@ -426,7 +316,7 @@ class PrinterNotValidTest extends TestResources {
                 .textFont(Font.MONOSPACED)
                 .textColor(Color.BLACK)
                 .paperSize(PaperSize.A1)
-                .paperMaterial(PaperMaterial.IRON)
+                .paperMaterial(PaperMaterial.COTTON)
                 .paperBackgroundColor(Color.WHITE)
                 .build();
 

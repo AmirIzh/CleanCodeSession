@@ -28,7 +28,6 @@ public class Utils {
 
         if (printTime <= printCommand.getUrgencyInSeconds()) {
             Thread.sleep(printTime);
-
         }
         else {
             throw new PrintTooSlowException(printerType, printCommand.getId(), printCommand.getUrgencyInSeconds(), printTime);
@@ -95,13 +94,6 @@ public class Utils {
             return Optional.of(PAPER_MATERIAL);
         }
 
-        return Optional.empty();
-    }
-
-    public static Optional<String> isMetalPrint(PrintCommand printCommand) {
-        if (printCommand.getPaperMaterial() == PaperMaterial.IRON || printCommand.getPaperMaterial() == PaperMaterial.STEEL) {
-            return Optional.of(PAPER_MATERIAL);
-        }
         return Optional.empty();
     }
 

@@ -17,7 +17,6 @@ public class WoodPrinter extends BasePrinter implements Printer {
     public Optional<String> isValidPrint(PrintCommand printCommand) {
         return Utils.isValidPrint(List.of(
                 () -> Utils.isLargePrint(printCommand),
-                () -> Utils.isColoredPrint(printCommand),
-                () -> Utils.isMetalPrint(printCommand)));
+                () -> Utils.isColoredPrint(printCommand)));
     }
 }

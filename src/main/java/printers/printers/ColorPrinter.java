@@ -16,7 +16,6 @@ public class ColorPrinter extends BasePrinter implements Printer {
     public Optional<String> isValidPrint(PrintCommand printCommand) {
         return Utils.isValidPrint(List.of(
                 () -> Utils.isLargePrint(printCommand),
-                () -> Utils.isWoodenPrint(printCommand),
-                () -> Utils.isMetalPrint(printCommand)));
+                () -> Utils.isWoodenPrint(printCommand)));
     }
 }

@@ -17,7 +17,6 @@ public class LargePrinter extends BasePrinter implements Printer {
     public Optional<String> isValidPrint(PrintCommand printCommand) {
         return Utils.isValidPrint(List.of(
                 () -> Utils.isColoredPrint(printCommand),
-                () -> Utils.isWoodenPrint(printCommand),
-                () -> Utils.isMetalPrint(printCommand)));
+                () -> Utils.isWoodenPrint(printCommand)));
     }
 }
