@@ -409,7 +409,7 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter1.print(printCommand));
         assertEquals(PAPER_BACKGROUND_COLOR, printerNotValidException.getInvalidReason());
     }
 
@@ -431,7 +431,7 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter1.print(printCommand));
         assertEquals(PAPER_SIZE, printerNotValidException.getInvalidReason());
     }
 
@@ -453,7 +453,7 @@ class PrinterNotValidTest extends TestResources {
                 .build();
 
         // act + assert:
-        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter.print(printCommand));
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter1.print(printCommand));
         assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
     }
 }

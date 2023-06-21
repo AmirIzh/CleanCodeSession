@@ -178,7 +178,7 @@ class PrintTest extends TestResources {
 
     @SneakyThrows
     @Test
-    void allMaterialsPrinterPrintTest() {
+    void allMaterialsPrinter1PrintTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
                 .builder()
@@ -195,11 +195,40 @@ class PrintTest extends TestResources {
                 .build();
 
         // act:
-        PrintReport printReport = allMaterialsPrinter.print(printCommand);
+        PrintReport printReport = allMaterialsPrinter1.print(printCommand);
 
         // assert:
         assertEquals(PrinterType.ALL_MATERIALS, printReport.getPrinterUsed());
         assertTrue(printReport.getPrintTime() < printCommand.getUrgencyInSeconds());
         assertTrue(printReport.getCost() < printCommand.getMaxCost());
+    }
+
+    @SneakyThrows
+    @Test
+    void allMaterialsPrinter2PrintTest() {
+        // arrange:
+        PrintCommand printCommand = PrintCommand
+                .builder()
+                .copies(1)
+                .urgencyInSeconds(A_LOT_OF_TIME)
+                .maxCost(VERY_HIGH_MAX_COST)
+                .text(LOREM_IPSUM)
+                .textSize(1)
+                .textFont(Font.SERIF)
+                .textColor(Color.BLACK)
+                .paperSize(PaperSize.A2)
+                .paperMaterial(PaperMaterial.IRON)
+                .paperBackgroundColor(Color.WHITE)
+                .build();
+
+        // act:
+        PrintReport printReport1 = allMaterialsPrinter1.print(printCommand);
+        PrintReport printReport2 = allMaterialsPrinter2.print(printCommand);
+
+        // assert:
+        assertEquals(PrinterType.ALL_MATERIALS, printReport2.getPrinterUsed());
+        assertTrue(printReport2.getPrintTime() < printCommand.getUrgencyInSeconds());
+        assertTrue(printReport2.getCost() < printCommand.getMaxCost());
+        assertTrue(printReport2.getCost() > printReport1.getCost());
     }
 }

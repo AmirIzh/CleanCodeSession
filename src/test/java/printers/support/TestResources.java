@@ -19,7 +19,9 @@ public class TestResources {
     @Autowired
     protected Printer woodPrinter;
     @Autowired
-    protected Printer allMaterialsPrinter;
+    protected Printer allMaterialsPrinter1;
+    @Autowired
+    protected Printer allMaterialsPrinter2;
 
     protected final long A_LOT_OF_TIME = 20;
     protected final long SHORT_TIME = 5;

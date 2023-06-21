@@ -27,8 +27,10 @@ public class Configuration {
     private int printerSimpleCostPerSecond;
     @Value("${printer.wood.cost.per.second}")
     private int printerWoodCostPerSecond;
-    @Value("${printer.all.materials.cost.per.second}")
-    private int printerAllMaterialsCostPerSecond;
+    @Value("${printer.all.materials.1.cost.per.second}")
+    private int printerAllMaterialsCostPerSecond1;
+    @Value("${printer.all.materials.2.cost.per.second}")
+    private int printerAllMaterialsCostPerSecond2;
     @Value("${max.retry.count}")
     private int maxRetryCount;
 
@@ -99,7 +101,12 @@ public class Configuration {
     }
 
     @Bean
-    Printer allMaterialsPrinter() {
-        return new AllMaterialsPrinter(PrinterType.ALL_MATERIALS, printerAllMaterialsCostPerSecond);
+    Printer allMaterialsPrinter1() {
+        return new AllMaterialsPrinter(PrinterType.ALL_MATERIALS, printerAllMaterialsCostPerSecond1);
+    }
+
+    @Bean
+    Printer allMaterialsPrinter2() {
+        return new AllMaterialsPrinter(PrinterType.ALL_MATERIALS, printerAllMaterialsCostPerSecond2);
     }
 }
