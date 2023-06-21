@@ -17,6 +17,7 @@ public class AllMaterialsPrinter extends BasePrinter implements Printer {
     public Optional<String> isValidPrint(PrintCommand printCommand) {
         return Utils.isValidPrint(List.of(
                 () -> Utils.isColoredPrint(printCommand),
-                () -> Utils.isLargePrint(printCommand)));
+                () -> Utils.isLargePrint(printCommand),
+                () -> Utils.isWoodenPrint(printCommand)));
     }
 }

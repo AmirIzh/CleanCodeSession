@@ -434,4 +434,26 @@ class PrinterNotValidTest extends TestResources {
         PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter.print(printCommand));
         assertEquals(PAPER_SIZE, printerNotValidException.getInvalidReason());
     }
+
+    @Test
+    void allMaterialsPrinterWoodPrintTest() {
+        // arrange:
+        PrintCommand printCommand = PrintCommand
+                .builder()
+                .copies(1)
+                .urgencyInSeconds(A_LOT_OF_TIME)
+                .maxCost(HIGH_MAX_COST)
+                .text(LOREM_IPSUM)
+                .textSize(1)
+                .textFont(Font.MONOSPACED)
+                .textColor(Color.BLACK)
+                .paperSize(PaperSize.A2)
+                .paperMaterial(PaperMaterial.WOOD)
+                .paperBackgroundColor(Color.WHITE)
+                .build();
+
+        // act + assert:
+        PrinterNotValidException printerNotValidException = assertThrows(PrinterNotValidException.class, () -> allMaterialsPrinter.print(printCommand));
+        assertEquals(PAPER_MATERIAL, printerNotValidException.getInvalidReason());
+    }
 }
