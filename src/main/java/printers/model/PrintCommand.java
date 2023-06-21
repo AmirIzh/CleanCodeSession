@@ -14,6 +14,7 @@ public class PrintCommand {
 	private final UUID id = UUID.randomUUID();
 
 	// General
+	private boolean weightTaxOption;
 	private boolean lowBudgetOption;
 	private int copies;
 	private long urgencyInSeconds;

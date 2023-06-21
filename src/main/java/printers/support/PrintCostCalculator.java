@@ -6,7 +6,7 @@ import printers.model.PrinterType;
 public class PrintCostCalculator {
 
     public double getPrintCost(PrinterType printerType, double costPerSecond, PrintCommand printCommand) {
-        long weightTax = getWeightTax(printCommand);
+        long weightTax = printCommand.isWeightTaxOption() ? getWeightTax(printCommand) : 0;
         long printTime = (long) Utils.getPrintTime(printerType, printCommand);
 
         return (printTime * costPerSecond) + weightTax;

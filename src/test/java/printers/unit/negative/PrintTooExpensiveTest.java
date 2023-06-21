@@ -20,6 +20,7 @@ class PrintTooExpensiveTest extends TestResources {
         // arrange:
         PrintCommand printCommand = PrintCommand
                 .builder()
+                .weightTaxOption(true)
                 .lowBudgetOption(false)
                 .copies(1)
                 .urgencyInSeconds(A_LOT_OF_TIME)
@@ -38,10 +39,34 @@ class PrintTooExpensiveTest extends TestResources {
     }
 
     @Test
+    void notTooExpensivePrintDueToNoWeightTaxOptionTest() {
+        // arrange:
+        PrintCommand printCommand = PrintCommand
+                .builder()
+                .weightTaxOption(false)
+                .lowBudgetOption(true)
+                .copies(1)
+                .urgencyInSeconds(A_LOT_OF_TIME)
+                .maxCost(MEDIUM_MAX_COST)
+                .text(LOREM_IPSUM)
+                .textSize(4)
+                .textFont(Font.MONOSPACED)
+                .textColor(Color.BLACK)
+                .paperSize(PaperSize.A2)
+                .paperMaterial(PaperMaterial.HEMP)
+                .paperBackgroundColor(Color.WHITE)
+                .build();
+
+        // act + assert:
+        assertDoesNotThrow(() -> simplePrinter.print(printCommand));
+    }
+
+    @Test
     void notTooExpensivePrintDueToLowBudgetOptionTest() {
         // arrange:
         PrintCommand printCommand = PrintCommand
                 .builder()
+                .weightTaxOption(true)
                 .lowBudgetOption(true)
                 .copies(1)
                 .urgencyInSeconds(A_LOT_OF_TIME)
@@ -64,6 +89,7 @@ class PrintTooExpensiveTest extends TestResources {
         // arrange:
         PrintCommand printCommand = PrintCommand
                 .builder()
+                .weightTaxOption(true)
                 .lowBudgetOption(true)
                 .copies(1)
                 .urgencyInSeconds(A_LOT_OF_TIME)
